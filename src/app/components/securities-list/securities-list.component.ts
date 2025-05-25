@@ -76,10 +76,15 @@ export class SecuritiesListComponent {
       .pipe(indicate(this.loadingSecurities$))
       .subscribe((securities: Security[]) => {
         this.totalItems = securities.length;
-        const types = securities.map((s) => {
-          this.currencies.push(s.currency);
-          this.types.push(s.type);
+        const currencySet = new Set<string>();
+        const typeSet = new Set<string>();
+        securities.forEach((s) => {
+          if (s.currency) currencySet.add(s.currency);
+          if (s.type) typeSet.add(s.type);
         });
+
+        this.currencies = Array.from(currencySet);
+        this.types = Array.from(typeSet);
       });
   }
 
@@ -102,23 +107,12 @@ export class SecuritiesListComponent {
         return value !== null && value !== undefined && value !== '';
       })
     );
-
-    //   if (Object.keys(cleanedFilter).length > 0) {
     this.filterfield = {
       ...cleanedFilter,
       skip: this.currentPage,
       limit: this.pageSize,
     };
-    // } else {
-    //   this.filterfield = {
-    //     skip: this.currentPage,
-    //     limit: this.pageSize,
-    //   };
-    // }
-
     this.updateSecurities();
-
-    console.log(this.filterfield);
   }
 
   onPageUpdate(page: PageEvent) {

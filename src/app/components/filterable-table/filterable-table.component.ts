@@ -54,7 +54,12 @@ export class FilterableTableComponent<T> implements AfterContentInit {
   @Input() currencies: string[] = [];
   config: FilterFieldConfig<SecuritiesFilter>[] = [
     { name: 'name', label: 'Name', type: 'text' },
-    { name: 'types', label: 'Types', type: 'multi-select' },
+    {
+      name: 'types',
+      label: 'Types',
+      type: 'multi-select',
+      options: this.types,
+    },
     {
       name: 'currencies',
       label: 'Currencies',
@@ -65,7 +70,6 @@ export class FilterableTableComponent<T> implements AfterContentInit {
       name: 'isPrivate',
       label: 'Private',
       type: 'checkbox',
-      options: this.types,
     },
   ];
 
@@ -93,13 +97,13 @@ export class FilterableTableComponent<T> implements AfterContentInit {
         name: 'types',
         label: 'Types',
         type: 'multi-select',
-        options: this.types!,
+        options: this.types,
       },
       {
         name: 'currencies',
         label: 'Currencies',
         type: 'multi-select',
-        options: this.currencies!,
+        options: this.currencies,
       },
       {
         name: 'isPrivate',

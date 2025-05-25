@@ -12,7 +12,6 @@ export interface FilterFieldConfig<T, K extends keyof T = keyof T> {
   name: string;
   label: string;
   type: 'text' | 'number' | 'select' | 'multi-select' | 'checkbox';
-  //options?: T[K] extends (infer U)[] ? U[] : T[K] extends string ? string[] : never;
   options?: string[];
 }
 @Component({
@@ -37,17 +36,6 @@ export class FilterBarComponent<T> implements OnInit {
   constructor(private fb: FormBuilder) {}
   ngOnInit() {
     const group: Record<string, any> = {};
-    for (const field of this.config) {
-      group[field.name as string] = [''];
-      if (
-        (field.type === 'multi-select' || field.type === 'select') &&
-        !field.options
-      ) {
-        console.warn(
-          `No options available "${String(field.name)}" of type "${field.type}"`
-        );
-      }
-    }
     this.filterForm = this.fb.group(group);
     this.config.forEach((field) => {
       const defaultValue =
