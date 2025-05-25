@@ -1,0 +1,19 @@
+.filter-form {
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  .full-width {
+    width: 100%;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  mat-checkbox {
+    margin-top: 24px;
+    display: block;
+  }
+}

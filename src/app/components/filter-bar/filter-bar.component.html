@@ -1,0 +1,61 @@
+<form
+  [formGroup]="filterForm"
+  class="filter-form mat-elevation-z2"
+  fxLayout="row wrap"
+  fxLayoutGap="16px"
+>
+  <ng-container *ngFor="let field of config">
+    <div fxFlex="25" [ngSwitch]="field.type">
+      <mat-form-field
+        appearance="fill"
+        *ngSwitchCase="'text'"
+        class="full-width"
+      >
+        <mat-label>{{ field.label }}</mat-label>
+        <input
+          matInput
+          type="text"
+          [formControlName]="field.name"
+          [id]="field.name"
+        />
+      </mat-form-field>
+
+      <!-- Single Select -->
+      <mat-form-field
+        appearance="fill"
+        *ngSwitchCase="'select'"
+        class="full-width"
+      >
+        <mat-label>{{ field.label }}</mat-label>
+        <mat-select [formControlName]="field.name" [id]="field.name">
+          <mat-option *ngFor="let opt of field.options" [value]="opt">{{
+            opt
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Multi Select -->
+      <mat-form-field
+        appearance="fill"
+        *ngSwitchCase="'multi-select'"
+        class="full-width"
+      >
+        <mat-label>{{ field.label }}</mat-label>
+        <mat-select [formControlName]="field.name" multiple>
+          @for (opt of field.options; track opt) {
+          <mat-option [value]="opt">{{ opt }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Checkbox -->
+      <mat-checkbox
+        *ngSwitchCase="'checkbox'"
+        [formControlName]="field.name"
+        [id]="field.name"
+      >
+        {{ field.label }}
+      </mat-checkbox>
+    </div>
+  </ng-container>
+</form>
